@@ -1,0 +1,42 @@
+{
+    "netbeans.jdkhome": "c:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\21",
+    "netbeans.project.jdkhome": "c:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\21",
+    "java.jdt.ls.java.home": "c:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\21",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-14",
+            "path": "C:\\Program Files\\Java\\jdk-14.0.2",
+            "default": true
+        },
+        {
+            "name": "JavaSE-17",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.10.7-hotspot"
+        },
+        {
+            "name": "JavaSE-19",
+            "path": "C:\\Program Files\\Java\\jdk-19"
+        },
+        {
+            "name": "JavaSE-21",
+            "path": "c:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\21"
+        },
+        {
+            "name": "JavaSE-25",
+            "path": "C:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\25"
+        },
+        {
+            "name": "JavaSE-26",
+            "path": "C:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\latest"
+        }
+    ],
+    "terminal.integrated.env.windows": {
+        "JAVA_HOME": "c:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\21",
+        "PATH": "c:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\21\\bin;${env:PATH}"
+    },
+    "maven.terminal.customEnv": [
+        {
+            "environmentVariable": "JAVA_HOME",
+            "value": "c:\\Users\\Sebastian\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\21"
+        }
+    ]
+}
