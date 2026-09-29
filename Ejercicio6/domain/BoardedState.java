@@ -8,6 +8,7 @@ import interfaces.ReservationState;
 
 public class BoardedState implements ReservationState {
 
+    /* No se puede confirmar una reserva abordada */
      @Override
     public void confirm(Reservation reservation) {
         System.out.println(
@@ -15,6 +16,7 @@ public class BoardedState implements ReservationState {
         );
     }
 
+    /* No se puede cancelar una reserva abordada */
     @Override
     public void cancel(Reservation reservation) {
         System.out.println(
@@ -22,6 +24,7 @@ public class BoardedState implements ReservationState {
         );
     }
 
+    /* No se puede modificar una reserva abordada */
     @Override
     public void modify(Reservation reservation) {
         System.out.println(
@@ -29,6 +32,7 @@ public class BoardedState implements ReservationState {
         );
     }
 
+    /* No se puede hacer check-in de una reserva abordada */
     @Override
     public void checkIn(Reservation reservation) {
         System.out.println(
@@ -36,6 +40,7 @@ public class BoardedState implements ReservationState {
         );
     }
 
+    /* No se puede abordar con una reserva abordada */
     @Override
     public void board(Reservation reservation) {
         System.out.println(
@@ -43,6 +48,7 @@ public class BoardedState implements ReservationState {
         );
     }
 
+    /* Devuelve el nombre del estado */
     @Override
     public String getName() {
         return "ABORDADA";

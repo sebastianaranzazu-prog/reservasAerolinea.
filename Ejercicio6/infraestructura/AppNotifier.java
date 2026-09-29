@@ -13,21 +13,12 @@ public class AppNotifier implements ReservationObserver{
     public AppNotifier(String userId) {
         this.userId = userId;
     }
-
+    
     @Override
     public void update(String message) {
         System.out.println(
                 "[APP - usuario " + userId + "]: " + message
         );
     }
-    
-    
-    /* 
-     @Override
-    public void update(String message) {
-        System.out.println("Notificación de la app: " + message);
-    }
-    */
-   
     
 }

@@ -8,6 +8,14 @@ import interfaces.PricingStrategy;
 
 public class FirstClassPricing implements PricingStrategy {
 
+    /**
+     * Calcula el precio de una reserva.
+     *
+     * @param flight Vuelo de la reserva.
+     * @param daysInAdvance Días de anticipación.
+     * @param additionalServices Servicios adicionales.
+     * @return Precio de la reserva.
+     */
     @Override
     public double calculatePrice(
             Flight flight,

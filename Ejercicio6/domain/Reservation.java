@@ -18,20 +18,40 @@ import java.util.List;
  */
 
 public class Reservation {
-
+    /* Numero de reserva */
     private final String reservationCode;
+
+    /* Dato del pasajero */
     private Passenger passenger;
+
+    /* Dato del vuelo */
     private Flight flight;
+
+    /*Dato del asiento */
     private Seat seat;
+
+    /* Dato del precio base*/
     private double basePrice;
+
+    /* Dato del precio final*/
     private double finalPrice;
+
+    /* Dato de los servicios adicionales */
     private int daysInAdvance;
 
+    /* Lista de servicios adicionales */
     private final List<String> additionalServices;
+
+    /* Observación de la reserva */
     private final List<ReservationObserver> observers;
 
+    /* Estrategia de precios */
     private PricingStrategy pricingStrategy;
+
+    /* Estado de la reserva */
     private ReservationState state;
+
+    /* Pago de la reserva */
     private Payment payment;
 
     public Reservation(

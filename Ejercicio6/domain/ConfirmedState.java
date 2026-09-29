@@ -8,6 +8,7 @@ import interfaces.ReservationState;
 
 public class ConfirmedState implements ReservationState{
     
+    /* La reserva ya esta confirmada */
      @Override
     public void confirm(Reservation reservation) {
         System.out.println(
@@ -15,11 +16,13 @@ public class ConfirmedState implements ReservationState{
         );
     }
 
+    /* La reserva se cancela */
     @Override
     public void cancel(Reservation reservation) {
         reservation.changeState(new CancelledState());
     }
 
+    /* No se puede modificar una reserva confirmada */
     @Override
     public void modify(Reservation reservation) {
         System.out.println(
@@ -27,11 +30,13 @@ public class ConfirmedState implements ReservationState{
         );
     }
 
+    /* Se pasa al estado de check-in */
     @Override
     public void checkIn(Reservation reservation) {
         reservation.changeState(new CheckInState());
     }
 
+    /* Primero se debe realizar el check-in */
     @Override
     public void board(Reservation reservation) {
         System.out.println(
@@ -39,6 +44,7 @@ public class ConfirmedState implements ReservationState{
         );
     }
 
+    /* Devuelve el nombre del estado */
     @Override
     public String getName() {
         return "CONFIRMADA";

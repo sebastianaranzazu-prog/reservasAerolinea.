@@ -9,9 +9,6 @@ import domain.ReservationBuilder;
 
 public class CreateReservationUseCase {
     
-    /**
-     * Recibe un Builder y construye una reserva válida.
-     */
     public Reservation execute(ReservationBuilder builder) {
         return builder.build();
     }

@@ -12,15 +12,31 @@ import java.util.List;
 
 public class ReservationBuilder {
 
+    /** numero de reserva */
     private String reservationCode;
+
+    /** datos del pasajero */
     private Passenger passenger;
+
+    /** datos del vuelo */
     private Flight flight;
+
+    /** datos del asiento */
     private Seat seat;
+
+    /** precio base */
     private double basePrice;
+
+    /** dias de anticipacion */
     private int daysInAdvance;
+
+    /** estrategia de precios */
     private PricingStrategy pricingStrategy;
+
+    /** servicios adicionales */
     private final List<String> additionalServices;
 
+    /** Constructor */
     public ReservationBuilder() {
         this.additionalServices = new ArrayList<>();
     }

@@ -20,7 +20,7 @@ public class Flight {
 
      // fecha de salida
     private final String departureDate;
-
+    
     public Flight(
             String flightNumber,
             String origin,

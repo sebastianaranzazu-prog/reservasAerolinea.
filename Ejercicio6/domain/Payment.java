@@ -6,8 +6,13 @@ package domain;
 
 public class Payment {
 
+    /** Identificador del pago. */
     private final String paymentId;
+
+    /** Monto del pago. */
     private final double amount;
+
+    /** Indica si el pago fue procesado. */
     private boolean paid;
 
     public Payment(String paymentId, double amount) {

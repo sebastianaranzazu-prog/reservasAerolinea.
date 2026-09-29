@@ -28,6 +28,7 @@ public class Main {
                 "3001234567"
         );
 
+        /* Vuelo */
         Flight flight = new Flight(
                 "AV101",
                 "Bogotá",
@@ -36,6 +37,7 @@ public class Main {
                 "2026-12-20"
         );
 
+        /* Asiento */
         Seat seat = new Seat(
                 "12A",
                 "Ventana"
@@ -55,6 +57,7 @@ public class Main {
                 .addService("Equipaje adicional")
                 .addService("Selección de asiento");
 
+        /* creacion del caso de la reserva */
         CreateReservationUseCase createUseCase =
                 new CreateReservationUseCase();
 
@@ -77,6 +80,7 @@ public class Main {
         );
 
         System.out.println(reservation);
+        
 
         /*
          * 4. Confirmar la reserva.

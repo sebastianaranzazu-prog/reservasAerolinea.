@@ -6,7 +6,12 @@ package domain;
  */
 
 public class Seat {
+
+
+    /**Numero */
     private final String number;
+
+    /**Tipo de asiento */
     private final String type;
 
     public Seat(String number, String type) {
