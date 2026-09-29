@@ -6,7 +6,7 @@ public class Ejemplos {
     /*
      * Forma genera usar múltiples condicionales para estados
      *
-     */
+     
 
     if (status == PENDING) {
     if (operation.equals("confirm")) {
@@ -17,10 +17,11 @@ public class Ejemplos {
     } else if (status == CONFIRMED) {
         // ...
     }
+    */
 
     /*
      * Builder permite crear la reserva paso a paso y solamente agregar las características necesarias
-     */
+    
     new ReservationBuilder()
         .withPassenger(passenger)
         .withFlight(flight)
@@ -30,6 +31,7 @@ public class Ejemplos {
         .withPreferences("Asiento de pasillo")
         .withPricingStrategy(new PremiumPricing())
         .build();
+     */
 
     /**
      * Estrategia para temporada alta.
