@@ -1,7 +1,6 @@
-import domain.Reservation;
-import interfaces.PricingStrategy;
+// package Ejercicio6;-
 
-public class Ejemplos {
+// public class Ejemplos {
 
     /*
      * Forma genera usar múltiples condicionales para estados
@@ -64,4 +63,4 @@ public class Ejemplos {
 
 
 
-}   
+//}
