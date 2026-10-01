@@ -36,7 +36,7 @@ public class ConfirmedState implements ReservationState{
         reservation.changeState(new CheckInState());
     }
 
-    /* Primero se debe realizar el check-in */
+    /* se pasa al estado de abordado */
     @Override
     public void board(Reservation reservation) {
         System.out.println(

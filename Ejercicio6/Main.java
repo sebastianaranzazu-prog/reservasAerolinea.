@@ -33,7 +33,7 @@ public class Main {
                 "AV101",
                 "Bogotá",
                 "Madrid",
-                800.0,
+                4000000.0,
                 "2026-12-20"
         );
 
@@ -51,7 +51,7 @@ public class Main {
                 .withPassenger(passenger)
                 .withFlight(flight)
                 .withSeat(seat)
-                .withBasePrice(800.0)
+                .withBasePrice(4000000.0)
                 .withDaysInAdvance(40)
                 .withPricingStrategy(new EconomyPricing())
                 .addService("Equipaje adicional")

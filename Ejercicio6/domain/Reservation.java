@@ -113,10 +113,10 @@ public class Reservation {
     }
 
     /**
-     * Para simplificar el ejemplo, cada servicio adicional cuesta 25.
+     * Para simplificar el ejemplo, cada servicio adicional cuesta $150,000.
      */
     private double calculateAdditionalServicesPrice() {
-        return additionalServices.size() * 25.0;
+        return additionalServices.size() * 150000.0;
     }
 
     public void confirm() {
@@ -161,6 +161,7 @@ public class Reservation {
                 "El pago de la reserva "
                         + reservationCode
                         + " fue procesado."
+                        + " Monto: $" + finalPrice
         );
     }
 

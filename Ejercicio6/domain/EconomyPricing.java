@@ -26,10 +26,10 @@ public class EconomyPricing implements PricingStrategy {
 
         /*
          * Si se compra con al menos 30 días de anticipación,
-         * se aplica un descuento del 10%.
+         * se aplica un descuento.
          */
         if (daysInAdvance >= 30) {
-            price = price * 0.10;
+            price = price * 0.20;
         }
 
         return price + additionalServices;
