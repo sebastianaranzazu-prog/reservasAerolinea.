@@ -1,216 +1,335 @@
 # BITÁCORA DE USO, AUDITORÍA Y REFACTORIZACIÓN ASISTIDA POR IA
 
-**Proyecto:** Sistema de monitoreo de microservicios con arquitectura en capas y notificaciones basadas en eventos  
-**Asignatura:** IS294 - Arquitectura Cliente Servidor  
-**Docente:** ING. Oscar Andrés Sierra Jaramillo  
+**Proyecto:** Sistema de monitoreo de microservicios con arquitectura en capas y notificaciones basadas en eventos
+**Asignatura:** IS294 – Arquitectura Cliente Servidor
+**Docente:** ING. Oscar Andrés Sierra Jaramillo
 **Integrantes:** Luis Fernando, Sebastian Aranzazu y John Alejandro Berrio
+**Repositorio:** `sebastianaranzazu-prog/reservasAerolinea.`
+**Rama de trabajo de la actualización:** `actualizacion-sistema-monitoreo`
+**Integración final:** rama `main`, mediante el commit de merge `87cdf26`
+**Último commit registrado en la entrega:** `11f8805` (incorpora la evidencia final E_43)
 
-## 1. Objetivo de la bitácora
+---
 
-Registrar el uso de la Inteligencia Artificial como herramienta de asistencia durante el análisis, diseño, implementación, revisión y mejoramiento del sistema de monitoreo de microservicios.
+## 1. Propósito y alcance de la bitácora
 
-La IA se utilizó como apoyo para analizar código, proponer estructuras, explicar patrones de diseño, identificar posibles problemas y orientar la implementación de pruebas.
+Esta bitácora registra cómo se utilizó la Inteligencia Artificial como asistente de análisis y programación durante el mejoramiento del sistema de monitoreo. Su propósito no es atribuirle a la IA la autoría total del proyecto, sino dejar trazabilidad de las consultas, las propuestas evaluadas, los hallazgos técnicos, las decisiones tomadas por el equipo y las verificaciones realizadas.
 
-El equipo mantuvo la responsabilidad de revisar las propuestas, comprender los cambios y verificar los resultados mediante la ejecución del programa y las pruebas automatizadas.
+La IA se utilizó como apoyo para analizar la estructura existente, estudiar alternativas de arquitectura, orientar la aplicación de principios SOLID y patrones GoF, revisar componentes y proponer escenarios de prueba. El equipo mantuvo la responsabilidad de revisar las propuestas, decidir cuáles eran adecuadas, adaptar la implementación y comprobar el resultado.
 
-**Nota metodológica:** las solicitudes que aparecen a continuación son resúmenes fieles de las actividades y consultas realizadas durante el desarrollo. No se presentan como transcripciones literales de prompts.
+### Nota sobre la fidelidad de los registros
 
-## 2. Registro de consultas y auditorías realizadas
+Los registros de consulta de esta bitácora están redactados como **síntesis fieles de los temas y solicitudes trabajados**, no como transcripciones literales de cada mensaje enviado en las conversaciones anteriores. No se presentan frases reconstruidas como citas textuales. Cuando se disponga de capturas o exportaciones de las conversaciones originales, pueden agregarse como anexo para reforzar la trazabilidad de los prompts.
 
-### Registro 1. Análisis del proyecto original
+También se distingue entre:
+- **Hallazgo del proyecto original:** problema encontrado al revisar el código que ya existía.
+- **Propuesta asistida por IA:** alternativa o explicación recibida durante el trabajo.
+- **Decisión del equipo:** cambio que se decidió aplicar después de revisar la propuesta.
+- **Validación:** evidencia que permite comprobar el comportamiento de la versión final.
 
-**Solicitud realizada a la IA:** analizar el proyecto de monitoreo existente, comprender su estructura y determinar cómo mejorarlo sin comenzar un sistema completamente diferente.
+No todos los hallazgos descritos fueron necesariamente errores producidos por la IA. Algunos pertenecían al proyecto heredado y otros fueron limitaciones detectadas durante la revisión crítica de la solución.
 
-**Apoyo recibido:** revisión de la organización original y explicación de las responsabilidades de sus componentes.
+---
 
-**Auditoría del equipo:** se identificaron problemas de distribución de responsabilidades, dependencias concretas entre componentes y oportunidades para mejorar la integración de las métricas.
+## 2. Registro de consultas y decisiones
 
-**Decisión tomada:** conservar el proyecto anterior como referencia y guardar su archivo principal como `docs/main_original.py`. Se decidió desarrollar una estructura por capas, manteniendo la trazabilidad del proceso.
+### Registro 1. Análisis del proyecto heredado
 
-**Resultado:** se establecieron las bases de la nueva arquitectura y se conservaron los archivos anteriores para comparar la implementación.
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Analizar el sistema de monitoreo desarrollado anteriormente, explicar cómo se relacionaban sus componentes y proponer una ruta de mejoramiento que reutilizara el trabajo existente en lugar de iniciar un sistema sin relación con él.
 
-### Registro 2. Selección del estilo arquitectónico
+**Apoyo recibido:**
+Orientación para revisar la estructura, identificar responsabilidades y separar los elementos que podían conservarse como referencia de los que necesitaban reorganización.
 
-**Solicitud realizada a la IA:** proponer una organización que permitiera separar responsabilidades y mantener límites claros entre los componentes.
+**Auditoría realizada por el equipo:**
+Se revisó el contenido de los directorios anteriores: `adapters`, `alerts`, `config`, `facade` y `monitoring`. Se encontró que la solución estaba concentrada en componentes con responsabilidades mezcladas y que la integración de CPU y memoria no tenía una separación suficientemente clara.
 
-**Apoyo recibido:** orientación para estructurar el proyecto en presentación, aplicación, dominio e infraestructura.
+**Decisión del equipo:**
+Conservar el proyecto previo como referencia, guardar su archivo principal en `docs/main_original.py` y construir la versión mejorada en una estructura nueva.
 
-**Auditoría del equipo:** se verificó que la organización propuesta correspondiera a un estilo arquitectónico reconocible y que no se mezclaran las responsabilidades de las diferentes capas.
+**Resultado y trazabilidad:**
+Se mantuvo el código anterior como evidencia del punto de partida y se creó la organización por capas. La carpeta original y el historial del repositorio permiten comparar la estructura heredada con la versión nueva.
 
-**Decisión tomada:** utilizar arquitectura en capas como estilo arquitectónico principal. Los eventos se manejan dentro del proceso mediante un despachador en memoria; no se incorporó un broker distribuido.
+### Registro 2. Selección y aplicación de arquitectura en capas
 
-**Resultado:** creación de los directorios `presentation`, `application`, `domain` e `infrastructure`.
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Proponer una estructura para separar presentación, coordinación de casos de uso, reglas del dominio e implementaciones técnicas, evitando dependencias cruzadas innecesarias.
 
-### Registro 3. Reorganización de responsabilidades y aplicación de SRP
+**Apoyo recibido:**
+Orientación para dividir el sistema en `presentation`, `application`, `domain` e `infrastructure`, y ubicar en cada capa los componentes correspondientes.
 
-**Solicitud realizada a la IA:** revisar las responsabilidades de las clases y mejorar la separación entre el monitoreo, la configuración y las notificaciones.
+**Auditoría realizada por el equipo:**
+Se comprobó que el estilo elegido fuera reconocible y que las dependencias siguieran una dirección coherente. Se revisó que el dominio no necesitara importar detalles de presentación o infraestructura.
 
-**Apoyo recibido:** recomendaciones de separación de componentes y uso de servicios y abstracciones.
+**Decisión del equipo:**
+Adoptar arquitectura en capas como estilo arquitectónico principal. El mecanismo de eventos se mantiene dentro del proceso mediante un despachador en memoria; no se presenta como un broker distribuido.
 
-**Auditoría del equipo:** se revisó que el servicio de monitoreo no asumiera directamente las responsabilidades de cada canal de notificación. También se separó la configuración de las reglas de evaluación y de la infraestructura.
+**Resultado y trazabilidad:**
+La estructura final contiene:
+- `presentation/`: interfaz de línea de comandos.
+- `application/`: servicio, fachada, puertos y despachador.
+- `domain/`: modelos y estrategias.
+- `infrastructure/`: adaptador, fuente de métricas y observadores concretos.
 
-**Decisión tomada:** implementar un servicio de aplicación para coordinar el monitoreo, modelos en el dominio y observadores independientes para las notificaciones.
+### Registro 3. Auditoría de la responsabilidad de CPU y memoria
 
-**Resultado:** las responsabilidades quedaron distribuidas en componentes como `MonitoringService`, `MonitoringConfig`, `AlertEvent` y las implementaciones de `AlertObserver`.
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Revisar cómo integrar las métricas de CPU y memoria y mantener la evaluación de ambas dentro de una responsabilidad de monitoreo bien definida.
 
-### Registro 4. Inversión de dependencias e interfaces
+**Hallazgo comprobado en el proyecto original:**
+En la versión heredada, `check_memory` aparecía dentro de `config/monitoring_config.py`, aunque su implementación utilizaba referencias como `self.config`, `self.notify` y lógica de notificación propias del monitor, no de una clase de configuración. Esto mezclaba responsabilidades y ubicaba la operación en una clase que no era su lugar natural.
 
-**Solicitud realizada a la IA:** mejorar el desacoplamiento entre el servicio de monitoreo y las implementaciones concretas.
+Además, el monitor anterior concentraba la comprobación de CPU en `MicroserviceMonitor`, mientras que la lógica de memoria no estaba integrada de forma coherente en el servicio de monitoreo.
 
-**Apoyo recibido:** propuesta de trabajar con contratos o interfaces para las dependencias principales.
+**Auditoría realizada por el equipo:**
+Se identificó que la configuración debía limitarse a almacenar y validar parámetros, mientras que la consulta y evaluación de métricas correspondían al servicio de aplicación.
 
-**Auditoría del equipo:** se comprobó que depender directamente de una implementación concreta dificultaría sustituir componentes y probarlos de forma independiente.
+**Decisión del equipo:**
+Separar la configuración en `MonitoringConfig` y llevar la evaluación de CPU y memoria a `MonitoringService`, que utiliza una única operación privada de evaluación para ambas métricas.
 
-**Decisión tomada:** crear las abstracciones `MonitoringAPI`, `AlertObserver` y `EventBus`.
+**Resultado y trazabilidad:**
+`MonitoringService.check_service()` consulta CPU y memoria mediante `MonitoringAPI`; `_evaluate_metric()` aplica la estrategia y publica el evento cuando corresponde. La suite incluye pruebas para el servicio y para la configuración.
 
-**Resultado:** `MonitoringService` recibe sus dependencias mediante contratos. El despachador y las implementaciones concretas se conectan desde `main.py`.
+### Registro 4. Auditoría y fortalecimiento del Adapter
 
-### Registro 5. Implementación del patrón Adapter
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Adaptar la fuente de métricas heredada al contrato que necesita la nueva aplicación y comprobar que los datos entregados sean válidos.
 
-**Solicitud realizada a la IA:** analizar cómo integrar la fuente de métricas anterior con la interfaz requerida por el nuevo servicio.
+**Hallazgo comprobado en el proyecto original:**
+El adaptador anterior obtenía el diccionario de la API heredada y devolvía directamente `data["cpu_usage_percent"]`. Esa implementación no validaba previamente que la respuesta fuera un diccionario, que la clave existiera, que el dato fuera numérico o que estuviera dentro del rango porcentual esperado. El contrato anterior se enfocaba únicamente en CPU.
 
-**Apoyo recibido:** orientación para implementar un adaptador entre la API heredada y el contrato de monitoreo.
+**Auditoría realizada por el equipo:**
+Se consideró insuficiente trasladar directamente ese valor a la nueva arquitectura, especialmente porque la nueva aplicación también necesita consultar memoria.
 
-**Auditoría del equipo:** se verificó que la fuente anterior entregaba los datos mediante una estructura diferente de la requerida por el servicio. También se revisó la necesidad de validar los valores recibidos.
+**Decisión del equipo:**
+Crear el contrato `MonitoringAPI` para CPU y memoria e implementar `LegacyMonitoringAdapter` en infraestructura. El adaptador verifica el tipo de respuesta, la presencia de la métrica, el tipo numérico —rechazando booleanos— y el rango de 0 a 100.
 
-**Decisión tomada:** implementar `LegacyMonitoringAdapter` para adaptar los datos y validar su estructura, sus claves y sus valores numéricos.
+**Resultado y trazabilidad:**
+La fuente heredada se conserva detrás del adaptador. El servicio depende de `MonitoringAPI` y no conoce el formato interno del diccionario legado. El comportamiento se comprueba con `tests/test_legacy_monitoring_adapter.py`.
 
-**Resultado:** el servicio puede trabajar mediante `MonitoringAPI` sin depender de los detalles internos de la fuente anterior.
+### Registro 5. Aplicación del patrón Strategy y eliminación de una regla rígida
 
-### Registro 6. Implementación del patrón Observer
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Permitir que la regla para comparar una métrica con su umbral pueda cambiar sin reescribir el servicio de monitoreo ni acumular condiciones para seleccionar comportamientos.
 
-**Solicitud realizada a la IA:** diseñar un mecanismo de notificación que permitiera distribuir alertas a diferentes canales sin acoplarlos al servicio de monitoreo.
+**Hallazgo comprobado en el proyecto original:**
+El monitor anterior contenía directamente la comparación de CPU con el umbral mediante una condición `if cpu_usage > threshold`. La regla estaba incorporada en el propio componente de monitoreo.
 
-**Apoyo recibido:** propuesta de utilizar un despachador de eventos y observadores que compartieran un contrato.
+**Auditoría realizada por el equipo:**
+Se determinó que la condición de comparación podía variar. Además, “mayor que” y “mayor o igual que” producen resultados distintos cuando el valor coincide exactamente con el umbral.
 
-**Auditoría del equipo:** se revisó que los observadores pudieran registrarse y retirarse, que no se duplicaran las suscripciones y que un fallo individual no detuviera necesariamente las demás notificaciones.
+**Decisión del equipo:**
+Definir el contrato abstracto `ThresholdStrategy` e implementar:
+- `GreaterThanThresholdStrategy`, que evalúa `value > threshold`.
+- `GreaterThanOrEqualThresholdStrategy`, que evalúa `value >= threshold`.
 
-**Decisión tomada:** implementar `EventDispatcher`, `EventBus` y `AlertObserver`, junto con los observadores Email, Slack, SMS y Teams.
+La estrategia concreta se selecciona al construir el sistema en `main.py`.
 
-**Resultado:** los eventos se distribuyen a los observadores registrados. El despachador utiliza una copia de la colección durante la publicación y maneja las excepciones de cada observador de forma individual.
+**Resultado y trazabilidad:**
+`MonitoringService` invoca `self._strategy.evaluate(value, threshold)` y no incorpora la regla de comparación directamente. Las dos estrategias pueden utilizarse mediante el mismo contrato. Se agregaron pruebas para los comportamientos de ambas.
 
-**Limitación identificada:** los canales muestran notificaciones simuladas en consola y no realizan envíos reales a servicios externos.
+### Registro 6. Auditoría de Observer y tolerancia a fallos de observadores
 
-### Registro 7. Implementación del patrón Strategy
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Organizar la distribución de alertas para que el servicio de monitoreo no tenga que conocer los detalles de Email, Slack, SMS o Teams, y estudiar cómo evitar que un fallo de un canal detenga toda la notificación.
 
-**Solicitud realizada a la IA:** permitir que el sistema utilizara diferentes reglas para comparar los valores de las métricas con sus umbrales.
+**Hallazgo comprobado en el proyecto original:**
+La implementación anterior mantenía los observadores dentro de `MicroserviceMonitor` y recorría directamente la colección para llamar a `update`. La lógica de monitoreo y el mecanismo de notificación estaban más unidos.
 
-**Apoyo recibido:** orientación para utilizar una estrategia abstracta y distintas implementaciones concretas.
+**Auditoría realizada por el equipo:**
+Se identificó que convenía separar el contrato de publicación del despachador concreto. También se evaluó el caso en que un observador lance una excepción durante la publicación.
 
-**Auditoría del equipo:** se revisó que una comparación de mayor que no es equivalente a una comparación de mayor o igual que. Se consideró importante representar ambas reglas de forma independiente.
+**Decisión del equipo:**
+Crear `EventBus` y `AlertObserver` como contratos y `EventDispatcher` como implementación. En `publish()`, el despachador recorre una tupla de los observadores registrados y maneja individualmente las excepciones de cada observador.
 
-**Decisión tomada:** crear `ThresholdStrategy`, `GreaterThanThresholdStrategy` y `GreaterThanOrEqualThresholdStrategy`.
+**Resultado y trazabilidad:**
+El servicio publica `AlertEvent` mediante `EventBus`. El despachador distribuye el evento a los observadores y registra los fallos individuales para continuar con los demás. Las pruebas están en `tests/test_event_dispatcher.py`; la evidencia del escenario de fallo del observador es `E_24_prueba_fallo_observador.png`.
 
-**Resultado:** el servicio puede utilizar diferentes reglas mediante el mismo contrato, sin incorporar un bloque condicional grande para seleccionar el comportamiento.
+### Registro 7. Inversión de dependencias y sustituibilidad
 
-### Registro 8. Implementación del patrón Facade
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Comprobar si el servicio principal depende de implementaciones concretas o de contratos y diseñar una prueba que demuestre que puede utilizar otra implementación compatible.
 
-**Solicitud realizada a la IA:** simplificar el acceso a las funcionalidades internas del sistema.
+**Auditoría realizada por el equipo:**
+Se revisó el constructor de `MonitoringService`, que recibe `MonitoringAPI`, `ThresholdStrategy`, `MonitoringConfig` y `EventBus`. También se comprobó que la fachada utiliza la abstracción `EventBus` para administrar observadores.
 
-**Apoyo recibido:** propuesta de utilizar una fachada para coordinar las operaciones principales.
+**Decisión del equipo:**
+Mantener la creación de implementaciones concretas en el punto de composición (`main.py`) e incorporar una implementación alternativa de bus de eventos en las pruebas.
 
-**Auditoría del equipo:** se verificó que la fachada facilitara el uso del sistema sin sustituir las responsabilidades del servicio de monitoreo ni del despachador.
+**Resultado y trazabilidad:**
+La prueba `test_service_accepts_alternative_event_bus` verifica que el servicio admite un bus alternativo que cumple el contrato. Esta prueba respalda la aplicación de DIP y la posibilidad de sustituir la implementación. No se afirma que todas las dependencias del proyecto sean interfaces: `MonitoringFacade` recibe `MonitoringService` como dependencia concreta de la misma capa de aplicación.
 
-**Decisión tomada:** implementar `MonitoringFacade`, que facilita la administración de observadores y la ejecución del monitoreo.
+### Registro 8. Responsabilidad de la Facade y composición de dependencias
 
-**Resultado:** se dispone de una interfaz de aplicación simplificada para utilizar los componentes internos.
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Simplificar el uso del sistema y separar la creación de componentes de la operación que solicita el monitoreo.
 
-**Observación técnica:** la fachada utiliza `MonitoringService` como dependencia concreta de la capa de aplicación y trabaja con la abstracción `EventBus`. El equipo decidió mantener esta coordinación sin crear una interfaz artificial adicional.
+**Hallazgo comprobado en el proyecto original:**
+La fachada anterior creaba directamente `MicroserviceMonitor`, los observadores y la API heredada, y también construía el adaptador. Esto concentraba en la fachada la creación y coordinación de muchos detalles concretos.
 
-### Registro 9. Validación y pruebas automatizadas
+**Auditoría realizada por el equipo:**
+Se concluyó que la composición de implementaciones debía quedar en el punto de entrada, mientras la fachada debía exponer una interfaz de uso más sencilla.
 
-**Solicitud realizada a la IA:** revisar los comportamientos de los componentes y orientar la construcción de pruebas automatizadas.
+**Decisión del equipo:**
+Construir las dependencias concretas en `main.py`, dentro de `build_facade()`. La fachada recibe `MonitoringService` y `EventBus`, ofrece operaciones para agregar o retirar observadores y delega el monitoreo al servicio.
 
-**Apoyo recibido:** sugerencias de escenarios de prueba para configuración, adaptador, eventos, estrategias, monitoreo e inversión de dependencias.
+**Resultado y trazabilidad:**
+`main.py` funciona como raíz de composición. `MonitoringFacade` simplifica el acceso sin duplicar la lógica de monitoreo ni sustituir al servicio.
 
-**Auditoría del equipo:** se revisaron los escenarios para comprobar no solamente la ejecución normal, sino también validaciones incorrectas, condiciones de umbral y fallos individuales de observadores.
+### Registro 9. Validación del comportamiento mediante pruebas
 
-**Decisión tomada:** implementar pruebas con `unittest` y ejecutar la suite completa después de las modificaciones.
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Identificar escenarios de prueba para comprobar tanto el funcionamiento normal como los casos límite de configuración, adaptación, publicación de eventos y evaluación de umbrales.
 
-**Resultado:** se alcanzó una suite final de 22 pruebas automatizadas ejecutadas correctamente.
+**Auditoría realizada por el equipo:**
+Se revisó que las pruebas no se limitaran a comprobar que el programa arrancara. Se incluyeron validaciones de datos, suscripciones, eliminación de observadores, errores individuales y sustitución del bus de eventos.
 
-**Evidencia:** `evidencias/E_41_suite_completa_22_pruebas.png`.
+**Decisión del equipo:**
+Implementar pruebas automatizadas con `unittest` y ejecutar la suite después de integrar los cambios.
 
-### Registro 10. Auditoría de la inversión de dependencias
+**Resultado y trazabilidad:**
+La suite final contiene 22 pruebas y terminó con `OK`. La evidencia es `evidencias/E_41_suite_completa_22_pruebas.png`. Las pruebas están distribuidas en:
+- `test_event_dispatcher.py`
+- `test_legacy_monitoring_adapter.py`
+- `test_monitoring_config.py`
+- `test_monitoring_service.py`
+- `test_dependency_inversion.py`
 
-**Solicitud realizada a la IA:** analizar si el servicio de monitoreo dependía de abstracciones y si podía utilizar una implementación alternativa del bus de eventos.
+La ejecución comprobada fue:
 
-**Apoyo recibido:** orientación para comprobar la sustituibilidad de la dependencia mediante una implementación de prueba.
+```text
+Ran 22 tests
+OK
+```
 
-**Auditoría del equipo:** se comprobó que la dependencia debía aceptar otro componente que cumpliera el contrato `EventBus`, sin requerir un `EventDispatcher` concreto.
+### Registro 10. Auditoría del diagrama UML
 
-**Decisión tomada:** implementar una prueba con `RecordingEventBus`.
+**Necesidad consultada a la IA — síntesis, no cita literal:**
+Revisar que el diagrama UML representara las clases, interfaces, capas y patrones de la implementación real.
 
-**Resultado:** la prueba `test_service_accepts_alternative_event_bus` verifica que el servicio puede utilizar una implementación alternativa del contrato.
+**Hallazgo de revisión:**
+El diagrama debía representar de forma explícita las dos estrategias concretas que estaban implementadas, no solamente la abstracción.
 
-**Evidencia:** `evidencias/E_40_prueba_dip_lsp.png` y `evidencias/E_41_suite_completa_22_pruebas.png`.
+**Decisión del equipo:**
+Actualizar `docs/uml.md` para incluir `GreaterThanThresholdStrategy` y `GreaterThanOrEqualThresholdStrategy`, junto con sus relaciones con `ThresholdStrategy` y los demás componentes.
 
-### Registro 11. Actualización del diagrama UML
+**Resultado y trazabilidad:**
+El diagrama actualizado se visualizó en Visual Studio Code y se guardó como `evidencias/E_42_diagrama_uml_actualizado.png`.
 
-**Solicitud realizada a la IA:** revisar el diagrama UML para que representara fielmente la arquitectura y las clases finales.
+### Registro 11. Detección de una limitación no corregida: intervalo de monitoreo
 
-**Apoyo recibido:** orientación para representar las interfaces, implementaciones y relaciones entre los componentes.
+**Necesidad de auditoría:**
+Comprobar si `monitoring_interval = 60` representaba una ejecución periódica real o si solamente estaba definido en la configuración.
 
-**Auditoría del equipo:** se detectó la necesidad de incluir explícitamente las dos estrategias concretas en el diagrama para que coincidiera con el código implementado.
+**Auditoría realizada por el equipo:**
+Se buscaron las referencias a `monitoring_interval`, `sleep`, ciclos de repetición y llamadas al servicio. Se encontró que el parámetro se define y valida en `MonitoringConfig`, pero no se utiliza para programar una ejecución periódica. La interfaz actual solicita el nombre del servicio y ejecuta una comprobación por invocación.
 
-**Decisión tomada:** actualizar `docs/uml.md` incorporando `GreaterThanThresholdStrategy` y `GreaterThanOrEqualThresholdStrategy`, además de las relaciones entre las capas y los patrones.
+**Decisión del equipo:**
+No afirmar que el sistema monitorea automáticamente cada 60 segundos. Se conserva el parámetro como configuración validada y se documenta esta limitación. No se añadió un ciclo infinito de ejecución porque habría cambiado el alcance y requeriría pruebas adicionales.
 
-**Resultado:** diagrama actualizado y visualizado correctamente en Visual Studio Code.
+**Resultado:**
+Se evitó presentar una funcionalidad no implementada como si estuviera activa. Esta decisión constituye una evidencia de revisión crítica y de reconocimiento de límites.
 
-**Evidencia:** `evidencias/E_42_diagrama_uml_actualizado.png`.
+---
 
-### Registro 12. Revisión crítica del intervalo de monitoreo
+## 3. Matriz consolidada de auditoría técnica
 
-**Solicitud realizada a la IA:** comprobar si el parámetro `monitoring_interval` controlaba una ejecución periódica del monitoreo.
+| Componente o aspecto | Hallazgo de la versión anterior / riesgo revisado | Decisión aplicada en la versión mejorada | Evidencia |
+|---|---|---|---|
+| Arquitectura | Responsabilidades distribuidas en carpetas antiguas sin límites de capas suficientemente claros | Separación en presentación, aplicación, dominio e infraestructura | Estructura del proyecto y `docs/uml.md` |
+| Memoria | `check_memory` estaba en la clase de configuración y utilizaba responsabilidades del monitor | Mover evaluación de CPU y memoria a `MonitoringService` | `monitoring_service.py`, pruebas del servicio |
+| Adapter | Acceso directo a una clave del diccionario, sin validaciones completas y orientado a CPU | Validar estructura, clave, tipo y rango; adaptar CPU y memoria | `legacy_monitoring_adapter.py`, `test_legacy_monitoring_adapter.py` |
+| Strategy | Regla de comparación integrada directamente en el monitor | Contrato abstracto y dos estrategias concretas | `threshold_strategy.py`, pruebas de estrategia |
+| Observer | Publicación ligada al monitor y sin aislamiento suficiente de fallos individuales | `EventBus`, `AlertObserver` y `EventDispatcher` con manejo individual de excepciones | `event_dispatcher.py`, `E_24`, pruebas del despachador |
+| DIP | Creación y uso de clases concretas en componentes de lógica | Inyección de contratos en `MonitoringService`; composición en `main.py` | `test_dependency_inversion.py`, `E_40` |
+| Facade | La fachada anterior construía directamente varios componentes concretos | La fachada recibe servicio y bus; `main.py` compone implementaciones | `monitoring_facade.py`, `main.py` |
+| UML | Faltaba representar explícitamente las dos estrategias concretas | Actualizar el diagrama para reflejar la implementación | `E_42_diagrama_uml_actualizado.png` |
+| Intervalo | `monitoring_interval` estaba definido, pero no controlaba una repetición periódica | Reconocer y documentar la limitación; no afirmar ejecución automática | Búsqueda del parámetro y código actual |
+| Pruebas | Se necesitaba comprobar la integración y los casos de error | Suite automatizada final de 22 pruebas | `E_41_suite_completa_22_pruebas.png` |
 
-**Apoyo recibido:** orientación para buscar las referencias del parámetro, los mecanismos de espera y los ciclos de repetición en el proyecto.
+---
 
-**Auditoría del equipo:** se ejecutó una búsqueda en todos los archivos Python. Se comprobó que `monitoring_interval` aparece en la configuración de dominio, en la configuración anterior y en las pruebas, pero no se utiliza para repetir el monitoreo.
+## 4. Qué se aceptó, qué se ajustó y qué no se implementó
 
-**Decisión tomada:** no presentar el intervalo de 60 segundos como funcionalidad activa. Se conserva como parámetro validado y se documenta que la ejecución actual realiza una revisión por invocación.
+### Propuestas o enfoques aceptados
 
-**Resultado:** se identificó una limitación real del sistema, evitando afirmar una funcionalidad que no está implementada.
+- Separar el sistema en cuatro capas.
+- Utilizar contratos para monitoreo, publicación de eventos y observadores.
+- Aplicar Adapter para mantener la compatibilidad con la fuente heredada.
+- Aplicar Strategy para intercambiar reglas de evaluación.
+- Aplicar Observer para distribuir las alertas.
+- Utilizar Facade para simplificar el acceso al caso de uso.
+- Probar la sustituibilidad de `EventBus` mediante una implementación alternativa.
 
-## 3. Resumen de las decisiones técnicas del equipo
+### Propuestas o enfoques ajustados tras la revisión
 
-| Aspecto auditado | Decisión del equipo |
+- La integración de memoria se reorganizó para que no quedara en la clase de configuración.
+- El adaptador se amplió para validar los datos y cubrir CPU y memoria.
+- La comparación de umbrales se separó en dos estrategias porque `>` y `>=` no significan lo mismo.
+- La distribución de eventos se reforzó para aislar los errores individuales de los observadores.
+- La fachada dejó de crear directamente todo el conjunto de componentes; la composición se trasladó a `main.py`.
+
+### Funcionalidades que no se deben afirmar
+
+- No se implementó Factory Method.
+- No se utiliza RabbitMQ, Kafka ni un broker distribuido.
+- Las métricas no proceden de servidores reales: son simuladas.
+- Email, Slack, SMS y Teams no realizan envíos reales: muestran notificaciones en consola.
+- `monitoring_interval` no implementa una ejecución periódica.
+
+---
+
+## 5. Evidencias y trazabilidad del trabajo
+
+Las siguientes evidencias permiten relacionar las decisiones técnicas con el desarrollo:
+
+| Evidencia | Qué demuestra |
 |---|---|
-| Estilo arquitectónico | Mantener arquitectura en capas |
-| Responsabilidades | Separar presentación, aplicación, dominio e infraestructura |
-| Dependencias | Utilizar interfaces y contratos |
-| Métricas | Integrar CPU y memoria mediante una interfaz |
-| Compatibilidad | Utilizar Adapter para la fuente anterior |
-| Notificaciones | Distribuir eventos mediante Observer |
-| Umbrales | Aplicar Strategy con dos reglas |
-| Acceso al sistema | Simplificar operaciones mediante Facade |
-| Fallos de observadores | Manejar errores individualmente |
-| Pruebas | Validar los componentes con unittest |
-| UML | Actualizarlo para coincidir con las clases finales |
-| Intervalo | Documentarlo como parámetro validado, no como ejecución periódica |
+| `E_01_programa_original.png` | Punto de partida del proyecto |
+| `E_14_fuente_metricas.png` | Fuente de métricas |
+| `E_18_fuente_metricas_cpu_memoria.png` | Integración de las dos métricas |
+| `E_19_integracion_cpu_memoria_cuatro_canales.png` | Distribución de eventos de CPU y memoria |
+| `E_24_prueba_fallo_observador.png` | Manejo de fallo individual de un observador |
+| `E_36_prueba_dos_estrategias.png` | Diferencia entre las estrategias |
+| `E_40_prueba_dip_lsp.png` | Prueba de dependencia y sustituibilidad |
+| `E_41_suite_completa_22_pruebas.png` | Resultado final de pruebas |
+| `E_42_diagrama_uml_actualizado.png` | UML actualizado |
+| `E_43_suite_final_22_pruebas.png` | Captura final de la suite de 22 pruebas, incorporada a `main` en el commit `11f8805` |
 
-## 4. Alcance y limitaciones reconocidas
+Además, el proyecto conserva `docs/main_original.py` como referencia de la versión anterior y `docs/uml.md` como fuente del diagrama.
 
-El equipo reconoce que el sistema utiliza valores simulados de CPU y memoria. Los canales Email, Slack, SMS y Teams muestran notificaciones en consola, sin integraciones externas reales.
+---
 
-También se reconoce que el despachador de eventos opera en memoria, dentro del proceso, y que el parámetro `monitoring_interval` no controla actualmente una ejecución periódica.
+## 6. Participación y responsabilidad del equipo
 
-Estas limitaciones fueron consideradas para evitar presentar capacidades que no forman parte de la implementación entregada.
+La IA fue utilizada como apoyo, no como sustituto de la comprensión del equipo. Las decisiones de arquitectura, la selección de patrones, la revisión de componentes, la integración de cambios y la comprobación de resultados fueron responsabilidad de los integrantes.
 
-## 5. Evidencias relacionadas
+Durante la defensa, los integrantes deben poder explicar:
+- Por qué se eligió arquitectura en capas.
+- Qué responsabilidad tiene cada componente.
+- Cómo se aplican los principios SOLID.
+- Qué problema resuelve cada patrón GoF.
+- Qué limitaciones fueron detectadas.
+- Qué pruebas demuestran el comportamiento implementado.
 
-- `docs/main_original.py`: referencia del código anterior.
-- `docs/uml.md`: definición del diagrama UML actualizado.
-- `evidencias/E_40_prueba_dip_lsp.png`: evidencia de la prueba de inversión de dependencias.
-- `evidencias/E_41_suite_completa_22_pruebas.png`: resultado de la suite final.
-- `evidencias/E_42_diagrama_uml_actualizado.png`: diagrama UML actualizado.
-- `tests/`: pruebas automatizadas de los componentes.
+---
 
-## 6. Conclusión de la auditoría
+## 7. Conclusión de la auditoría
 
-La Inteligencia Artificial se utilizó como herramienta de apoyo durante el desarrollo, pero las decisiones de diseño y la aceptación de los cambios se realizaron mediante revisión técnica del equipo.
+El uso de Inteligencia Artificial permitió acelerar el análisis y la exploración de alternativas, pero las propuestas no se aceptaron sin revisión. El equipo contrastó la organización del código con el estilo arquitectónico elegido, identificó responsabilidades mal ubicadas en la versión heredada, fortaleció la validación del adaptador, separó las reglas de umbral mediante Strategy, desacopló la publicación de eventos mediante contratos y añadió pruebas automatizadas.
 
-El proceso incluyó análisis del código existente, reorganización de responsabilidades, implementación de abstracciones, aplicación de patrones de diseño, revisión de dependencias, elaboración de pruebas y actualización del diagrama UML.
+La auditoría también permitió reconocer una limitación real: el parámetro `monitoring_interval` no controla una ejecución periódica. En lugar de afirmar una capacidad inexistente, el equipo decidió documentarla como limitación.
 
-El equipo no asumió que todas las propuestas fueran correctas por defecto. Se evaluaron los resultados, se conservaron las limitaciones identificadas y se verificó el comportamiento mediante pruebas automatizadas.
+La evidencia de 22 pruebas aprobadas, el diagrama UML actualizado, el código organizado en capas y la conservación de la versión original permiten demostrar el proceso de mejoramiento. La responsabilidad final sobre el código y su defensa corresponde a los integrantes del equipo.
 
-La responsabilidad final sobre la comprensión, integración y defensa del proyecto corresponde a los integrantes.
+---
+
+## 8. Anexo recomendado: prompts originales
+
+Esta bitácora contiene síntesis de las solicitudes y no transcripciones literales. Para fortalecer el criterio de “bitácora detallada de prompts”, se pueden anexar capturas auténticas de los mensajes originales de las conversaciones de desarrollo, si todavía están disponibles.
+
+Las capturas deben mostrar el mensaje del estudiante y, cuando sea útil, la respuesta de IA que se sometió a revisión. No deben editarse para aparentar que una síntesis es una cita literal.
+
+La evidencia `E_43_suite_final_22_pruebas.png` ya está asignada a la captura final de la suite de pruebas; por tanto, no debe reutilizarse su nombre para capturas de prompts. Si se recuperan conversaciones originales y se decide capturarlas, deben recibir identificadores nuevos y consecutivos a partir de la última evidencia existente, verificando primero el inventario real.
+
+**Importante:** no se deben crear capturas ficticias ni afirmar que se guardaron si no existen. La ausencia de capturas originales debe declararse con transparencia; las síntesis de esta bitácora no sustituyen los prompts literales.
