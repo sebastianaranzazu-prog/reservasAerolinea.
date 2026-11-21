@@ -1,9 +1,12 @@
 from dataclasses import dataclass
+
+
 @dataclass(frozen=True)
 class MonitoringConfig:
     """
     Configuración general del sistema de monitoreo.
     """
+
     cpu_threshold: float = 80.0
     memory_threshold: float = 80.0
     monitoring_interval: int = 60
